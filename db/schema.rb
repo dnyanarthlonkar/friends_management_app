@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180628190830) do
+ActiveRecord::Schema.define(version: 20180628194621) do
+
+  create_table "blocks", force: :cascade do |t|
+    t.integer  "blocker_id"
+    t.integer  "blockee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blocker_id", "blockee_id"], name: "index_blocks_on_blocker_id_and_blockee_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followee_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["follower_id", "followee_id"], name: "index_follows_on_follower_id_and_followee_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "friender_id"
+    t.integer  "friendee_id"
+    t.integer  "status",      default: 1
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["friender_id", "friendee_id"], name: "index_friendships_on_friender_id_and_friendee_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
